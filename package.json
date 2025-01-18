@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "build": "tailwindcss build ./input.css -o dist/input.css"
-  },
+    "build": "tailwindcss build C:/xampp/htdocs/suitmedia_test/input.css -o dist/styles.css"  },
   "keywords": [],
   "author": "",
   "license": "ISC",
