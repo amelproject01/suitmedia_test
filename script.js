@@ -14,7 +14,6 @@ window.addEventListener("scroll", function() {
 
   let condition = true;
   let color = (condition) ? "rgba(223, 93, 36, 0.7)" : "rgba(223, 93, 36, 1)";
-
 });
 
 const apiUrl = "https://suitmedia-backend.suitdev.com/api/ideas";
@@ -67,7 +66,7 @@ const fetchData = async (apiUrl, params, method = 'GET') => {
 
     const container = document.getElementById('cards-container');
 
-    if (data.data && Array.isArray(data.data)) {
+    if (container && data.data && Array.isArray(data.data)) {
         data.data.forEach(item => {
           
           const card = document.createElement('div');
@@ -87,13 +86,14 @@ const fetchData = async (apiUrl, params, method = 'GET') => {
           container.appendChild(card);
         });
       } else {
-        console.error("Data structure is not as expected:", data);
+        console.error("Data structure is not as expected or no data available:", data);
       }
       
   } catch (error) {
     console.error("Terjadi kesalahan:", error);
   }
 };
+
 
 fetchData(apiUrl, params, 'GET');
 
@@ -104,14 +104,14 @@ async function loadBanner() {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Acces-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*'
         }
       });
       const data = await response.json();
       console.log(data); 
   
       const bannerImage = document.getElementById('banner-image');
-      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+      if (bannerImage && data.data && Array.isArray(data.data) && data.data.length > 0) {
         const firstItem = data.data[0];
         if (firstItem.medium_image && firstItem.medium_image.length > 0) {
           console.log(firstItem.medium_image[0].url);
@@ -132,7 +132,9 @@ async function loadBanner() {
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
     const bannerImage = document.getElementById('banner-image');
-    bannerImage.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+    if (bannerImage) {
+      bannerImage.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+    }
   });
   
   fetch('http://localhost:3000/api/ideas?page[number]=1&page[size]=10&append[]=small_image&append[]=medium_image&sort=-published_at')
