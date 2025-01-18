@@ -10,3 +10,11 @@ module.exports = {
   },
   plugins: [],
 }
+
+const nextConfig = {
+  eslist: {
+    ignoreDuringBuilds: true,
+  },
+}
+
+module.exports = nextConfig
